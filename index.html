@@ -26,7 +26,7 @@
   --radius: 20px;
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: 'Syne', sans-serif;
@@ -34,7 +34,10 @@ body {
   color: var(--ink);
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
+
+button, a { touch-action: manipulation; }
 
 .material-symbols-outlined {
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -594,6 +597,102 @@ body {
   font-weight: 400;
 }
 .site-footer strong { color: var(--gold); }
+
+/* ===== MOBILE OPTIMIZATIONS ===== */
+@media (max-width: 600px) {
+
+  /* Header */
+  .header-inner { padding: 0 16px; height: 56px; }
+  .logo-icon { width: 32px; height: 32px; }
+  .logo-icon .material-symbols-outlined { font-size: 17px; }
+  .logo-text { font-size: 16px; }
+  .logo-sub { display: none; }
+  .header-nav { gap: 4px; }
+  .header-nav-btn { padding: 6px 11px; font-size: 11px; letter-spacing: 0; }
+
+  /* Hero */
+  .hero { padding: 32px 16px 28px; }
+  .hero-title { font-size: 28px; line-height: 1.1; margin-bottom: 14px; }
+  .hero-desc { font-size: 14px; margin-bottom: 28px; }
+  .hero-eyebrow { font-size: 10px; padding: 5px 12px; margin-bottom: 16px; }
+  .hero-stats { gap: 24px; }
+  .hero-stat-num { font-size: 28px; }
+  .hero-stat-label { font-size: 11px; }
+
+  /* Harta layout */
+  .harta-layout { padding: 20px 16px; gap: 24px; }
+  .flow-node { padding: 20px 16px; border-radius: 16px; }
+  .node-title { font-size: 20px; }
+  .node-desc { font-size: 14px; margin-bottom: 14px; }
+  .conn-grid { grid-template-columns: 1fr; gap: 12px; }
+  .sidebar-card { padding: 20px 16px; }
+  .tip-box { padding: 20px 16px; }
+
+  /* Conectori */
+  .conectori-layout { padding: 20px 16px; }
+  .conectori-hero {
+    grid-template-columns: 1fr;
+    padding: 28px 20px;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .conectori-hero h2 { font-size: 24px; }
+  .conectori-hero p { font-size: 14px; }
+  .hero-badge-count { font-size: 48px; }
+  .hero-badge-label { font-size: 11px; }
+  .conn-categories { grid-template-columns: 1fr; gap: 14px; margin-bottom: 24px; }
+  .conn-cat-card { padding: 20px 16px; }
+  .sfat-card { flex-direction: column; gap: 12px; padding: 20px 16px; }
+  .sfat-icon { font-size: 28px; }
+
+  /* Ghid */
+  .ghid-layout { padding: 20px 16px; gap: 24px; }
+  .ghid-steps-section h2 { font-size: 24px; }
+  .step-circle { width: 44px; height: 44px; flex-shrink: 0; }
+  .step-circle .material-symbols-outlined { font-size: 20px; }
+  .step-row:not(:last-child) .step-line-wrap::after { left: 22px; }
+  .step-body { padding: 16px; border-radius: 14px; margin-bottom: 20px; }
+  .step-h { font-size: 16px; }
+  .step-p { font-size: 13px; }
+  .progress-card { padding: 24px 20px; }
+  .progress-num { font-size: 40px; }
+  .res-item { padding: 14px 12px; gap: 10px; }
+  .res-name { font-size: 13px; }
+
+  /* Examples */
+  .examples-section { padding: 36px 16px 48px; }
+  .section-sub { font-size: 14px; margin-bottom: 28px; }
+  .examples-grid { grid-template-columns: 1fr; gap: 20px; }
+  .ex-card-top { padding: 20px 20px 16px; gap: 12px; }
+  .ex-card-title { font-size: 17px; }
+  .ex-teza { margin: 0 20px 16px; padding: 14px 16px; }
+  .ex-args { padding: 0 20px; gap: 12px; }
+  .ex-concluzie { margin: 16px 20px 20px; padding: 16px; }
+
+  /* Footer */
+  .site-footer { padding: 24px 16px; font-size: 12px; }
+
+  /* Disable hover transforms on touch */
+  .flow-node:hover { transform: none; box-shadow: none; }
+  .conn-cat-card:hover { transform: none; box-shadow: none; }
+  .ex-card:hover { transform: none; box-shadow: none; }
+  .res-item:hover { transform: none; }
+
+  /* Active tap feedback instead */
+  .flow-node:active { transform: scale(0.99); }
+  .conn-cat-card:active { transform: scale(0.99); }
+  .ex-card:active { transform: scale(0.99); }
+  .res-item:active { background: var(--cream2); }
+  .header-nav-btn:active { opacity: 0.8; }
+}
+
+@media (max-width: 380px) {
+  .header-nav-btn { padding: 5px 8px; font-size: 10px; }
+  .logo-text { font-size: 14px; }
+  .hero-title { font-size: 24px; }
+  .hero-stats { gap: 16px; }
+  .hero-stat-num { font-size: 24px; }
+}
 
 /* ===== ANIMATIONS ===== */
 @keyframes fadeUp {
