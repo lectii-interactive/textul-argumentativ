@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Logica Argumentării</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --ink: #0d0d14;
+  --ink2: #2a2a3d;
+  --gold: #c9a84c;
+  --gold-light: #f0d898;
+  --gold-dim: #7a5e1e;
+  --cream: #faf7f2;
+  --cream2: #f0ebe0;
+  --navy: #0b1535;
+  --navy2: #162050;
+  --teal: #1a6b5a;
+  --teal-light: #d4efe9;
+  --rust: #9b3a1a;
+  --rust-light: #fbe8e0;
+  --card-bg: #ffffff;
+  --border: rgba(0,0,0,0.08);
+  --radius: 20px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Syne', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy);
+  width: 100%;
+  border-bottom: 1px solid rgba(201,168,76,0.25);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 68px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo-icon {
+  width: 38px; height: 38px;
+  background: var(--gold);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logo-icon .material-symbols-outlined {
+  font-size: 20px; color: var(--navy);
+  font-variation-settings: 'FILL' 1;
+}
+.logo-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.logo-sub { font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 600; letter-spacing: 0.08em; display: block; margin-top: -2px; }
+
+.header-nav { display: flex; gap: 6px; }
+.header-nav-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 40px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: all 0.2s;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.5);
+}
+.header-nav-btn:hover { background: rgba(255,255,255,0.13); color: #fff; }
+.header-nav-btn.active { background: var(--gold); color: var(--navy); }
+
+/* ===== HERO ===== */
+.hero {
+  background: var(--navy);
+  width: 100%;
+  padding: 80px 40px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 30%;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(26,107,90,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 40px;
+  padding: 6px 16px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.hero-eyebrow .material-symbols-outlined { font-size: 14px; }
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1.05;
+  color: #fff;
+  max-width: 900px;
+  margin-bottom: 20px;
+}
+.hero-title em { color: var(--gold); font-style: italic; }
+.hero-desc {
+  font-size: 17px; line-height: 1.7;
+  color: rgba(255,255,255,0.6);
+  max-width: 620px;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+.hero-stats {
+  display: flex; gap: 40px; flex-wrap: wrap;
+}
+.hero-stat { }
+.hero-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; color: var(--gold);
+  line-height: 1;
+}
+.hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 600; letter-spacing: 0.06em; margin-top: 4px; }
+
+/* ===== VIEWS ===== */
+.view { display: none; width: 100%; }
+.view.active { display: block; }
+
+/* ===== HARTA VIEW ===== */
+.harta-layout {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .harta-layout { grid-template-columns: 1fr; padding: 30px 20px; }
+  .hero { padding: 50px 20px 40px; }
+  .header-inner { padding: 0 20px; }
+  .header-nav-btn { padding: 7px 14px; font-size: 12px; }
+}
+
+/* Flow column */
+.flow-column { display: flex; flex-direction: column; gap: 0; }
+.flow-node {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 32px;
+  border: 1px solid var(--border);
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: default;
+}
+.flow-node:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+
+.flow-node.node-ipoteza { border-top: 4px solid var(--gold); }
+.flow-node.node-argument { border-top: 4px solid var(--navy); }
+.flow-node.node-dovada { border-top: 4px solid var(--teal); }
+.flow-node.node-conectori { background: var(--cream); border: 2px dashed rgba(0,0,0,0.12); }
+.flow-node.node-concluzie { background: var(--navy); color: #fff; border: none; }
+
+.node-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  border-radius: 40px;
+  padding: 5px 12px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.badge-gold { background: rgba(201,168,76,0.15); color: var(--gold-dim); border: 1px solid rgba(201,168,76,0.3); }
+.badge-navy { background: rgba(11,21,53,0.08); color: var(--navy); border: 1px solid rgba(11,21,53,0.15); }
+.badge-teal { background: var(--teal-light); color: var(--teal); border: 1px solid rgba(26,107,90,0.2); }
+.badge-rust { background: var(--rust-light); color: var(--rust); border: 1px solid rgba(155,58,26,0.2); }
+.badge-white { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.15); }
+.node-badge .material-symbols-outlined { font-size: 13px; }
+
+.node-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px; font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.node-concluzie .node-title { color: #fff; }
+.node-desc { font-size: 15px; line-height: 1.7; color: #555; font-weight: 400; margin-bottom: 20px; }
+.node-concluzie .node-desc { color: rgba(255,255,255,0.65); }
+
+.quote-block {
+  background: var(--cream2);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+.quote-item { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; }
+.quote-item + .quote-item { border-top: 1px solid rgba(0,0,0,0.06); }
+.q-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 8px; }
+.q-text { font-size: 14px; font-style: italic; color: #444; line-height: 1.6; }
+
+.evidence-quote {
+  border-left: 3px solid var(--teal);
+  padding-left: 14px;
+  margin-top: 16px;
+  font-size: 14px; font-style: italic; color: var(--teal);
+}
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.tag {
+  border-radius: 40px; padding: 6px 14px;
+  font-size: 12px; font-weight: 700;
+  border: 1px solid;
+}
+.tag-blue { background: rgba(11,21,53,0.06); color: var(--navy2); border-color: rgba(11,21,53,0.15); }
+.tag-teal { background: var(--teal-light); color: var(--teal); border-color: rgba(26,107,90,0.2); }
+.tag-gold { background: rgba(201,168,76,0.1); color: var(--gold-dim); border-color: rgba(201,168,76,0.25); }
+.tag-rust { background: var(--rust-light); color: var(--rust); border-color: rgba(155,58,26,0.2); }
+
+.concluzie-inner {
+  background: rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 18px 20px;
+  border: 1px solid rgba(255,255,255,0.12);
+  font-size: 15px; font-style: italic;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.65;
+  margin-top: 16px;
+}
+
+/* Connector arrow */
+.flow-arrow {
+  display: flex; align-items: center; justify-content: center;
+  height: 48px;
+  position: relative;
+}
+.flow-arrow::before {
+  content: '';
+  position: absolute;
+  left: 50%; top: 0;
+  width: 2px; height: 100%;
+  background: linear-gradient(to bottom, rgba(201,168,76,0.4), rgba(11,21,53,0.3));
+  transform: translateX(-50%);
+}
+.flow-arrow-icon {
+  width: 32px; height: 32px;
+  background: var(--cream);
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+}
+.flow-arrow-icon .material-symbols-outlined { font-size: 18px; color: #888; }
+
+/* Connectors section inside flow */
+.conn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+@media (max-width: 600px) { .conn-grid { grid-template-columns: 1fr 1fr; } }
+.conn-cell { }
+.conn-cell-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+.conn-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.conn-pill { border-radius: 40px; padding: 5px 12px; font-size: 12px; font-weight: 600; border: 1px solid; }
+
+/* Sidebar */
+.sidebar { display: flex; flex-direction: column; gap: 20px; }
+.sidebar-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 28px;
+  border: 1px solid var(--border);
+}
+.sidebar-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sidebar-title .material-symbols-outlined { font-size: 18px; color: var(--gold-dim); }
+
+.tip-box {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 28px;
+  color: #fff;
+}
+.tip-title { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--gold); margin-bottom: 12px; }
+.tip-text { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.7); }
+
+.structure-list { display: flex; flex-direction: column; gap: 10px; }
+.structure-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--cream);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.structure-item:hover { background: var(--cream2); }
+.s-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.s-text { font-size: 13px; font-weight: 600; color: var(--ink2); }
+
+/* ===== CONECTORI VIEW ===== */
+.conectori-layout {
+  max-width: 1400px; margin: 0 auto;
+  padding: 60px 40px;
+}
+@media (max-width: 900px) { .conectori-layout { padding: 30px 20px; } }
+
+.conectori-hero {
+  background: var(--navy);
+  border-radius: 24px;
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 30px;
+  align-items: center;
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.conectori-hero::after {
+  content: 'CONECTORI';
+  position: absolute;
+  right: -20px; bottom: -30px;
+  font-family: 'Playfair Display', serif;
+  font-size: 100px;
+  color: rgba(255,255,255,0.03);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.conectori-hero h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px; color: #fff; margin-bottom: 12px;
+}
+.conectori-hero p { font-size: 16px; color: rgba(255,255,255,0.6); line-height: 1.7; }
+.hero-badge-count {
+  font-family: 'Playfair Display', serif;
+  font-size: 72px; color: var(--gold);
+  line-height: 1;
+}
+.hero-badge-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); text-align: center; }
+
+.conn-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 40px; }
+.conn-cat-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 28px;
+  border: 1px solid var(--border);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.conn-cat-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+.conn-cat-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.conn-cat-icon {
+  width: 48px; height: 48px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.conn-cat-icon .material-symbols-outlined { font-size: 24px; }
+.conn-cat-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+.conn-cat-sub { font-size: 12px; color: #888; font-weight: 400; }
+.conn-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.c-tag { border-radius: 40px; padding: 6px 14px; font-size: 12px; font-weight: 700; border: 1.5px solid; }
+
+.sfat-card {
+  background: linear-gradient(135deg, var(--cream2), var(--cream));
+  border-radius: var(--radius);
+  padding: 36px;
+  border: 2px dashed rgba(0,0,0,0.12);
+  display: flex; gap: 24px; align-items: flex-start;
+}
+.sfat-icon { font-size: 36px; flex-shrink: 0; }
+.sfat-title { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 8px; }
+.sfat-text { font-size: 15px; line-height: 1.7; color: #555; font-weight: 400; }
+
+/* ===== GHID VIEW ===== */
+.ghid-layout {
+  max-width: 1400px; margin: 0 auto;
+  padding: 60px 40px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 1000px) { .ghid-layout { grid-template-columns: 1fr; padding: 30px 20px; } }
+
+.ghid-steps-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px; margin-bottom: 8px;
+}
+.ghid-steps-section .sub { font-size: 15px; color: #888; margin-bottom: 36px; }
+
+.steps-timeline { display: flex; flex-direction: column; gap: 0; }
+.step-row {
+  display: flex; gap: 20px;
+  position: relative;
+}
+.step-row:not(:last-child) .step-line-wrap::after {
+  content: '';
+  position: absolute;
+  left: 27px; top: 54px;
+  width: 2px; bottom: -28px;
+  background: rgba(0,0,0,0.08);
+}
+.step-line-wrap { position: relative; flex-shrink: 0; }
+.step-circle {
+  width: 54px; height: 54px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  cursor: default;
+}
+.step-circle:hover { transform: scale(1.08); }
+.step-circle .material-symbols-outlined { font-size: 24px; }
+.step-body {
+  flex: 1;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+  margin-bottom: 28px;
+  transition: box-shadow 0.2s;
+}
+.step-body:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+.step-body.active-step { border-left: 4px solid var(--navy); }
+.step-num-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+.step-h { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 6px; }
+.step-p { font-size: 14px; line-height: 1.65; color: #666; font-weight: 400; }
+.step-check-btn { border: none; background: none; cursor: pointer; padding: 0; line-height: 1; }
+.step-check-btn .material-symbols-outlined { font-size: 22px; color: #ccc; transition: color 0.2s, font-variation-settings 0.2s; }
+.step-check-btn.done .material-symbols-outlined { color: #10B981; font-variation-settings: 'FILL' 1; }
+
+.ghid-sidebar { display: flex; flex-direction: column; gap: 24px; }
+.progress-card {
+  background: var(--navy);
+  border-radius: var(--radius);
+  padding: 32px;
+  color: #fff;
+}
+.progress-title { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--gold); margin-bottom: 6px; }
+.progress-sub { font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+.progress-num { font-family: 'Playfair Display', serif; font-size: 52px; color: #fff; line-height: 1; }
+.progress-denom { font-size: 20px; color: rgba(255,255,255,0.4); }
+.progress-bar-wrap { height: 8px; background: rgba(255,255,255,0.1); border-radius: 40px; overflow: hidden; margin: 20px 0 8px; }
+.progress-bar { height: 100%; background: var(--gold); border-radius: 40px; transition: width 0.5s cubic-bezier(0.4,0,0.2,1); width: 0%; }
+.progress-pct { font-size: 13px; color: rgba(255,255,255,0.5); text-align: right; }
+
+.res-section { }
+.res-section h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 16px; }
+.res-item {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--card-bg);
+  border-radius: 14px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+  text-decoration: none; color: inherit;
+  transition: background 0.15s, transform 0.15s;
+}
+.res-item:hover { background: var(--cream2); transform: translateX(4px); }
+.res-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.res-name { font-size: 14px; font-weight: 700; }
+.res-meta { font-size: 12px; color: #888; margin-top: 2px; }
+.res-arrow { margin-left: auto; color: #ccc; }
+
+/* ===== EXAMPLES SECTION ===== */
+.examples-section {
+  background: var(--cream2);
+  border-top: 2px solid rgba(0,0,0,0.06);
+  padding: 80px 40px;
+}
+@media (max-width: 900px) { .examples-section { padding: 50px 20px; } }
+.examples-inner { max-width: 1400px; margin: 0 auto; }
+.section-eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 12px;
+}
+.eyebrow-line { flex: 0 0 40px; height: 2px; background: var(--gold); border-radius: 2px; }
+.eyebrow-text { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dim); }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 48px); margin-bottom: 8px; }
+.section-sub { font-size: 16px; color: #777; margin-bottom: 48px; font-weight: 400; }
+
+.examples-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 28px; }
+@media (max-width: 600px) { .examples-grid { grid-template-columns: 1fr; } }
+
+.ex-card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.ex-card:hover { transform: translateY(-6px); box-shadow: 0 24px 80px rgba(0,0,0,0.13); }
+
+.ex-card-top {
+  padding: 28px 28px 20px;
+  display: flex; align-items: flex-start; gap: 16px;
+}
+.ex-num-badge {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--navy); color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ex-card-title { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1.2; }
+.ex-card-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #aaa; margin-top: 4px; }
+
+.ex-teza {
+  margin: 0 28px 20px;
+  background: var(--cream);
+  border-radius: 14px;
+  padding: 16px 18px;
+  border-left: 4px solid var(--gold);
+}
+.ex-teza-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 6px; }
+.ex-teza-text { font-size: 14px; font-style: italic; color: #333; line-height: 1.6; }
+
+.ex-args { padding: 0 28px; display: flex; flex-direction: column; gap: 14px; }
+.ex-arg-block { }
+.ex-arg-head { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 6px; }
+.ex-arg-dot {
+  width: 24px; height: 24px; border-radius: 50%;
+  font-size: 10px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 1px;
+}
+.dot-navy { background: var(--navy); color: #fff; }
+.dot-teal { background: var(--teal); color: #fff; }
+.ex-arg-title { font-size: 13px; font-weight: 700; color: var(--ink2); margin-bottom: 3px; }
+.ex-arg-text { font-size: 13px; color: #666; line-height: 1.55; font-weight: 400; }
+.ex-dovada-row { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; background: var(--teal-light); border-radius: 10px; }
+.ex-dovada-icon { font-size: 14px; color: var(--teal); flex-shrink: 0; margin-top: 1px; }
+.ex-dovada-text { font-size: 13px; color: var(--teal); line-height: 1.55; font-style: italic; font-weight: 400; }
+.ex-concluzie {
+  margin: 20px 28px 28px;
+  background: var(--navy);
+  border-radius: 14px;
+  padding: 18px 20px;
+}
+.ex-concluzie-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.ex-concluzie-label .material-symbols-outlined { font-size: 14px; font-variation-settings: 'FILL' 1; }
+.ex-concluzie-text { font-size: 14px; font-style: italic; color: rgba(255,255,255,0.8); line-height: 1.6; }
+
+/* ===== FOOTER ===== */
+.site-footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 32px 40px;
+  font-size: 13px;
+  font-weight: 400;
+}
+.site-footer strong { color: var(--gold); }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.anim { animation: fadeUp 0.5s ease both; }
+.anim-d1 { animation-delay: 0.05s; }
+.anim-d2 { animation-delay: 0.12s; }
+.anim-d3 { animation-delay: 0.19s; }
+.anim-d4 { animation-delay: 0.26s; }
+.anim-d5 { animation-delay: 0.33s; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">
+        <span class="material-symbols-outlined">account_tree</span>
+      </div>
+      <div>
+        <span class="logo-text">Logica Argumentării</span>
+        <span class="logo-sub">Ghid Complet de Studiu</span>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <button class="header-nav-btn active" onclick="switchView('harta', this)">Hartă</button>
+      <button class="header-nav-btn" onclick="switchView('conectori', this)">Conectori</button>
+      <button class="header-nav-btn" onclick="switchView('ghid', this)">Ghid Studiu</button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow anim">
+      <span class="material-symbols-outlined" style="font-size:14px;">school</span>
+      Text Argumentativ
+    </div>
+    <h1 class="hero-title anim anim-d1">
+      Structura logică a <em>argumentării</em> convingătoare
+    </h1>
+    <p class="hero-desc anim anim-d2">
+      Harta conceptuală care organizează elementele esențiale — teză, argumente, dovezi și concluzie — pentru a convinge orice receptor.
+    </p>
+    <div class="hero-stats anim anim-d3">
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Componente majore</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-label">Pași de redactare</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">20+</div>
+        <div class="hero-stat-label">Conectori logici</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Exemple complete</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== VIEW: HARTA ==================== -->
+<div id="view-harta" class="view active">
+<div class="harta-layout">
+  <!-- FLOW COLUMN -->
+  <div class="flow-column">
+
+    <!-- Node 1: Ipoteza -->
+    <div class="flow-node node-ipoteza anim">
+      <div class="node-badge badge-gold">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">lightbulb</span>
+        Punctul de plecare
+      </div>
+      <h2 class="node-title">Tema și Ipoteza</h2>
+      <p class="node-desc">Subiectul general și opinia autorului care urmează să fie demonstrată. Ipoteza trebuie să fie clară, concisă și demonstrabilă.</p>
+      <div class="quote-block">
+        <div class="quote-item"><div class="q-dot"></div><span class="q-text">"În opinia mea, fenomenul X are consecințe semnificative asupra..."</span></div>
+        <div class="quote-item"><div class="q-dot"></div><span class="q-text">"Consider că societatea modernă trebuie să reconsidere..."</span></div>
+        <div class="quote-item"><div class="q-dot"></div><span class="q-text">"Sunt de părere că această problemă reflectă..."</span></div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="flow-arrow-icon"><span class="material-symbols-outlined">arrow_downward</span></div>
+    </div>
+
+    <!-- Node 2: Argument -->
+    <div class="flow-node node-argument anim anim-d1">
+      <div class="node-badge badge-navy">
+        <span class="material-symbols-outlined">format_list_numbered</span>
+        Nucleul argumentativ
+      </div>
+      <h2 class="node-title">Ideea Susținută (Argumentul)</h2>
+      <p class="node-desc">Raționamentul logic care sprijină ipoteza. Fiecare argument trebuie să fie distinct, clar formulat și ordonat logic. Un eseu solid conține minimum 2 argumente.</p>
+      <div class="tag-row">
+        <span class="tag tag-blue">Raționament</span>
+        <span class="tag tag-blue">Structură</span>
+        <span class="tag tag-blue">Ordinea ideilor</span>
+        <span class="tag tag-blue">Coerență</span>
+      </div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="flow-arrow-icon"><span class="material-symbols-outlined">arrow_downward</span></div>
+    </div>
+
+    <!-- Node 3: Dovada -->
+    <div class="flow-node node-dovada anim anim-d2" style="position:relative;">
+      <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--teal);color:#fff;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:4px 14px;border-radius:40px;white-space:nowrap;">Suport Factual</div>
+      <div class="node-badge badge-teal" style="margin-top:10px;">
+        <span class="material-symbols-outlined">assignment</span>
+        Dovada / Exemplul
+      </div>
+      <h2 class="node-title">Exemplul și Dovada</h2>
+      <p class="node-desc">Citate, fapte istorice, statistici, experimente sau experiențe personale care confirmă validitatea argumentului. Fiecare argument necesită cel puțin o dovadă.</p>
+      <div class="evidence-quote">"Așa cum se observă în lucrarea lui X, studiile au demonstrat că..."</div>
+      <div class="evidence-quote" style="border-color:var(--gold-dim);color:var(--gold-dim);">"Conform statisticilor publicate în 2022, procentul a crescut la..."</div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="flow-arrow-icon"><span class="material-symbols-outlined">arrow_downward</span></div>
+    </div>
+
+    <!-- Node 4: Conectori -->
+    <div class="flow-node node-conectori anim anim-d3">
+      <div class="node-badge badge-rust">
+        <span class="material-symbols-outlined">link</span>
+        Articulație
+      </div>
+      <h2 class="node-title" style="font-size:22px;">Conectori Logici</h2>
+      <p class="node-desc" style="margin-bottom:20px;">Elementele care asigură fluiditatea și coerența textului argumentativ.</p>
+      <div class="conn-grid">
+        <div class="conn-cell">
+          <p class="conn-cell-label" style="color:var(--navy);">Argumentare</p>
+          <div class="conn-pills">
+            <span class="conn-pill" style="background:rgba(11,21,53,0.07);color:var(--navy2);border-color:rgba(11,21,53,0.15);">În primul rând</span>
+            <span class="conn-pill" style="background:rgba(11,21,53,0.07);color:var(--navy2);border-color:rgba(11,21,53,0.15);">Pe de o parte</span>
+            <span class="conn-pill" style="background:rgba(11,21,53,0.07);color:var(--navy2);border-color:rgba(11,21,53,0.15);">În al doilea rând</span>
+          </div>
+        </div>
+        <div class="conn-cell">
+          <p class="conn-cell-label" style="color:var(--teal);">Exemplificare</p>
+          <div class="conn-pills">
+            <span class="conn-pill" style="background:var(--teal-light);color:var(--teal);border-color:rgba(26,107,90,0.2);">De exemplu</span>
+            <span class="conn-pill" style="background:var(--teal-light);color:var(--teal);border-color:rgba(26,107,90,0.2);">Cum ar fi</span>
+            <span class="conn-pill" style="background:var(--teal-light);color:var(--teal);border-color:rgba(26,107,90,0.2);">Precum</span>
+          </div>
+        </div>
+        <div class="conn-cell">
+          <p class="conn-cell-label" style="color:var(--gold-dim);">Concluzie</p>
+          <div class="conn-pills">
+            <span class="conn-pill" style="background:rgba(201,168,76,0.1);color:var(--gold-dim);border-color:rgba(201,168,76,0.25);">În concluzie</span>
+            <span class="conn-pill" style="background:rgba(201,168,76,0.1);color:var(--gold-dim);border-color:rgba(201,168,76,0.25);">Prin urmare</span>
+            <span class="conn-pill" style="background:rgba(201,168,76,0.1);color:var(--gold-dim);border-color:rgba(201,168,76,0.25);">Așadar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow">
+      <div class="flow-arrow-icon" style="background:var(--navy);border-color:var(--navy);">
+        <span class="material-symbols-outlined" style="color:var(--gold);">arrow_downward</span>
+      </div>
+    </div>
+
+    <!-- Node 5: Concluzia -->
+    <div class="flow-node node-concluzie anim anim-d4">
+      <div class="node-badge badge-white">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">verified</span>
+        Finalul argumentativ
+      </div>
+      <h2 class="node-title">Concluzia</h2>
+      <p class="node-desc">Rezumarea ideilor principale și reluarea nuanțată a tezei inițiale. Concluzia nu introduce idei noi, ci sintetizează argumentele prezentate.</p>
+      <div class="concluzie-inner">
+        "Așadar, argumentele prezentate demonstrează fără echivoc că... Prin urmare, consider că teza formulată inițial se confirmă în lumina dovezilor expuse."
+      </div>
+      <div class="tag-row" style="margin-top:16px;">
+        <span class="tag" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.15);">Sinteză</span>
+        <span class="tag" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.15);">Reluarea tezei</span>
+        <span class="tag" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border-color:rgba(255,255,255,0.15);">Fără idei noi</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="tip-box anim">
+      <p class="tip-title">Structura Eseului</p>
+      <p class="tip-text">Un text argumentativ convingător respectă întotdeauna ordinea: Introducere → Argumentare (cu dovezi) → Concluzie. Nu sări nicio etapă.</p>
+    </div>
+
+    <div class="sidebar-card anim anim-d1">
+      <p class="sidebar-title"><span class="material-symbols-outlined">checklist</span> Componentele majore</p>
+      <div class="structure-list">
+        <div class="structure-item">
+          <div class="s-num">1</div>
+          <span class="s-text">Ipoteza (Teza)</span>
+        </div>
+        <div class="structure-item">
+          <div class="s-num">2</div>
+          <span class="s-text">Argumentele + Dovezile</span>
+        </div>
+        <div class="structure-item">
+          <div class="s-num">3</div>
+          <span class="s-text">Concluzia</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card anim anim-d2">
+      <p class="sidebar-title"><span class="material-symbols-outlined">tips_and_updates</span> De reținut</p>
+      <div class="structure-list">
+        <div class="structure-item" style="background:rgba(201,168,76,0.08);">
+          <div class="s-num" style="background:var(--gold-dim);">✓</div>
+          <span class="s-text">Minimum 2 argumente distincte</span>
+        </div>
+        <div class="structure-item" style="background:rgba(26,107,90,0.06);">
+          <div class="s-num" style="background:var(--teal);">✓</div>
+          <span class="s-text">Fiecare argument are o dovadă</span>
+        </div>
+        <div class="structure-item" style="background:rgba(155,58,26,0.06);">
+          <div class="s-num" style="background:var(--rust);">✓</div>
+          <span class="s-text">Conectori logici între paragrafe</span>
+        </div>
+        <div class="structure-item" style="background:rgba(11,21,53,0.05);">
+          <div class="s-num">✓</div>
+          <span class="s-text">Concluzia reia teza nuanțat</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-card anim anim-d3" style="background:var(--cream2);">
+      <p class="sidebar-title"><span class="material-symbols-outlined">format_quote</span> Formulări uzuale</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:#fff;border-radius:10px;padding:10px 14px;font-size:13px;font-style:italic;color:#444;border-left:3px solid var(--gold);">"În opinia mea..."</div>
+        <div style="background:#fff;border-radius:10px;padding:10px 14px;font-size:13px;font-style:italic;color:#444;border-left:3px solid var(--navy);">"Un prim argument este..."</div>
+        <div style="background:#fff;border-radius:10px;padding:10px 14px;font-size:13px;font-style:italic;color:#444;border-left:3px solid var(--teal);">"De exemplu, conform..."</div>
+        <div style="background:#fff;border-radius:10px;padding:10px 14px;font-size:13px;font-style:italic;color:#444;border-left:3px solid var(--rust);">"În concluzie, argumentele demonstrează..."</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== VIEW: CONECTORI ==================== -->
+<div id="view-conectori" class="view">
+<div class="conectori-layout">
+
+  <div class="conectori-hero anim">
+    <div>
+      <h2>Articulația Logică</h2>
+      <p>Conectorii logici sunt "scheletul invizibil" al textului argumentativ — ei ghidează cititorul prin structura raționamentului tău și asigură coerența ideilor.</p>
+    </div>
+    <div style="text-align:center;flex-shrink:0;">
+      <div class="hero-badge-count">20+</div>
+      <div class="hero-badge-label">Conectori<br>disponibili</div>
+    </div>
+  </div>
+
+  <div class="conn-categories">
+
+    <div class="conn-cat-card anim">
+      <div class="conn-cat-header">
+        <div class="conn-cat-icon" style="background:rgba(11,21,53,0.08);">
+          <span class="material-symbols-outlined" style="color:var(--navy);">format_list_numbered</span>
+        </div>
+        <div>
+          <p class="conn-cat-title">Punctarea argumentelor</p>
+          <p class="conn-cat-sub">Ordonați secvențial ideile principale</p>
+        </div>
+      </div>
+      <div class="conn-tags">
+        <span class="c-tag" style="background:rgba(11,21,53,0.07);color:var(--navy2);border-color:rgba(11,21,53,0.15);">În primul rând</span>
+        <span class="c-tag" style="background:rgba(11,21,53,0.07);color:var(--navy2);border-color:rgba(11,21,53,0.15);">În al doilea rând</span>
+        <span class="c-tag" style="background:rgba(11,21,53,0.07);color:var(--navy2);border-color:rgba(11,21,53,0.15);">Pe de o parte</span>
+        <span class="c-tag" style="background:rgba(11,21,53,0.07);color:var(--navy2);border-color:rgba(11,21,53,0.15);">Pe de altă parte</span>
+        <span class="c-tag" style="background:rgba(11,21,53,0.07);color:var(--navy2);border-color:rgba(11,21,53,0.15);">Un alt argument</span>
+      </div>
+    </div>
+
+    <div class="conn-cat-card anim anim-d1">
+      <div class="conn-cat-header">
+        <div class="conn-cat-icon" style="background:var(--teal-light);">
+          <span class="material-symbols-outlined" style="color:var(--teal);">lightbulb</span>
+        </div>
+        <div>
+          <p class="conn-cat-title">Explicare și Exemplificare</p>
+          <p class="conn-cat-sub">Clarifică prin dovezi concrete</p>
+        </div>
+      </div>
+      <div class="conn-tags">
+        <span class="c-tag" style="background:var(--teal-light);color:var(--teal);border-color:rgba(26,107,90,0.2);">De exemplu</span>
+        <span class="c-tag" style="background:var(--teal-light);color:var(--teal);border-color:rgba(26,107,90,0.2);">Precum</span>
+        <span class="c-tag" style="background:var(--teal-light);color:var(--teal);border-color:rgba(26,107,90,0.2);">Spre exemplificare</span>
+        <span class="c-tag" style="background:var(--teal-light);color:var(--teal);border-color:rgba(26,107,90,0.2);">Mai exact</span>
+        <span class="c-tag" style="background:var(--teal-light);color:var(--teal);border-color:rgba(26,107,90,0.2);">Cum ar fi</span>
+      </div>
+    </div>
+
+    <div class="conn-cat-card anim anim-d2">
+      <div class="conn-cat-header">
+        <div class="conn-cat-icon" style="background:var(--rust-light);">
+          <span class="material-symbols-outlined" style="color:var(--rust);">compare_arrows</span>
+        </div>
+        <div>
+          <p class="conn-cat-title">Comparație și Contrast</p>
+          <p class="conn-cat-sub">Evidențiază diferențele dintre teze</p>
+        </div>
+      </div>
+      <div class="conn-tags">
+        <span class="c-tag" style="background:var(--rust-light);color:var(--rust);border-color:rgba(155,58,26,0.2);">Dimpotrivă</span>
+        <span class="c-tag" style="background:var(--rust-light);color:var(--rust);border-color:rgba(155,58,26,0.2);">Spre deosebire de</span>
+        <span class="c-tag" style="background:var(--rust-light);color:var(--rust);border-color:rgba(155,58,26,0.2);">În schimb</span>
+        <span class="c-tag" style="background:var(--rust-light);color:var(--rust);border-color:rgba(155,58,26,0.2);">Cu toate acestea</span>
+      </div>
+    </div>
+
+    <div class="conn-cat-card anim">
+      <div class="conn-cat-header">
+        <div class="conn-cat-icon" style="background:#fde8e8;">
+          <span class="material-symbols-outlined" style="color:#ba1a1a;">link</span>
+        </div>
+        <div>
+          <p class="conn-cat-title">Cauzalitate și Consecință</p>
+          <p class="conn-cat-sub">Relația logică de tip cauză-efect</p>
+        </div>
+      </div>
+      <div class="conn-tags">
+        <span class="c-tag" style="background:#fde8e8;color:#ba1a1a;border-color:rgba(186,26,26,0.2);">Deoarece</span>
+        <span class="c-tag" style="background:#fde8e8;color:#ba1a1a;border-color:rgba(186,26,26,0.2);">Fiindcă</span>
+        <span class="c-tag" style="background:#fde8e8;color:#ba1a1a;border-color:rgba(186,26,26,0.2);">Prin urmare</span>
+        <span class="c-tag" style="background:#fde8e8;color:#ba1a1a;border-color:rgba(186,26,26,0.2);">Astfel</span>
+        <span class="c-tag" style="background:#fde8e8;color:#ba1a1a;border-color:rgba(186,26,26,0.2);">De aceea</span>
+      </div>
+    </div>
+
+    <div class="conn-cat-card anim anim-d1">
+      <div class="conn-cat-header">
+        <div class="conn-cat-icon" style="background:rgba(201,168,76,0.12);">
+          <span class="material-symbols-outlined" style="color:var(--gold-dim);font-variation-settings:'FILL' 1;">verified</span>
+        </div>
+        <div>
+          <p class="conn-cat-title">Concluzie</p>
+          <p class="conn-cat-sub">Sintetizează și validează ipoteza</p>
+        </div>
+      </div>
+      <div class="conn-tags">
+        <span class="c-tag" style="background:rgba(201,168,76,0.1);color:var(--gold-dim);border-color:rgba(201,168,76,0.25);font-weight:800;">În concluzie</span>
+        <span class="c-tag" style="background:rgba(201,168,76,0.1);color:var(--gold-dim);border-color:rgba(201,168,76,0.25);">Așadar</span>
+        <span class="c-tag" style="background:rgba(201,168,76,0.1);color:var(--gold-dim);border-color:rgba(201,168,76,0.25);">În final</span>
+        <span class="c-tag" style="background:rgba(201,168,76,0.1);color:var(--gold-dim);border-color:rgba(201,168,76,0.25);">În altă ordine de idei</span>
+      </div>
+    </div>
+
+    <div class="conn-cat-card anim anim-d2">
+      <div class="conn-cat-header">
+        <div class="conn-cat-icon" style="background:#f0edff;">
+          <span class="material-symbols-outlined" style="color:#5b4fcf;">add_circle</span>
+        </div>
+        <div>
+          <p class="conn-cat-title">Adăugare și Accentuare</p>
+          <p class="conn-cat-sub">Completează și subliniază ideile</p>
+        </div>
+      </div>
+      <div class="conn-tags">
+        <span class="c-tag" style="background:#f0edff;color:#5b4fcf;border-color:rgba(91,79,207,0.2);">Mai mult decât atât</span>
+        <span class="c-tag" style="background:#f0edff;color:#5b4fcf;border-color:rgba(91,79,207,0.2);">De asemenea</span>
+        <span class="c-tag" style="background:#f0edff;color:#5b4fcf;border-color:rgba(91,79,207,0.2);">În plus</span>
+        <span class="c-tag" style="background:#f0edff;color:#5b4fcf;border-color:rgba(91,79,207,0.2);">Ba mai mult</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sfat-card anim">
+    <div class="sfat-icon">💡</div>
+    <div>
+      <p class="sfat-title">Sfat Academic</p>
+      <p class="sfat-text">Evită repetarea aceluiași conector în paragrafe consecutive. O argumentare elegantă folosește o varietate de structuri logice pentru a menține interesul cititorului și a demonstra stăpânirea limbii. Alternează conectori de aceeași categorie pentru diversitate stilistică.</p>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ==================== VIEW: GHID STUDIU ==================== -->
+<div id="view-ghid" class="view">
+<div class="ghid-layout">
+  <div class="ghid-steps-section">
+    <h2 class="anim">Structura Eseului Argumentativ</h2>
+    <p class="sub anim anim-d1">Urmează cei 5 pași esențiali pentru un text convingător</p>
+
+    <div class="steps-timeline">
+
+      <div class="step-row anim anim-d1">
+        <div class="step-line-wrap">
+          <div class="step-circle" style="background:var(--navy);">
+            <span class="material-symbols-outlined" style="color:#fff;">edit_note</span>
+          </div>
+        </div>
+        <div class="step-body active-step">
+          <div class="step-num-label">
+            <span>Pasul 1</span>
+            <button class="step-check-btn" onclick="toggleStep(this)" aria-label="Marchează ca rezolvat">
+              <span class="material-symbols-outlined">check_circle</span>
+            </button>
+          </div>
+          <p class="step-h">Alegerea temei și formularea ipotezei</p>
+          <p class="step-p">Stabilește clar poziția ta față de problemă. Ipoteza trebuie să fie concisă, afirmativă și să poată fi demonstrată cu argumente și dovezi concrete.</p>
+        </div>
+      </div>
+
+      <div class="step-row anim anim-d2">
+        <div class="step-line-wrap">
+          <div class="step-circle" style="background:var(--navy);">
+            <span class="material-symbols-outlined" style="color:#fff;">balance</span>
+          </div>
+        </div>
+        <div class="step-body">
+          <div class="step-num-label">
+            <span>Pasul 2</span>
+            <button class="step-check-btn" onclick="toggleStep(this)" aria-label="Marchează ca rezolvat">
+              <span class="material-symbols-outlined">check_circle</span>
+            </button>
+          </div>
+          <p class="step-h">Identificarea argumentelor pro și contra</p>
+          <p class="step-p">Selectează cel puțin două argumente solide, susținute de dovezi sau exemple din literatură, știință sau experiență personală.</p>
+        </div>
+      </div>
+
+      <div class="step-row anim anim-d3">
+        <div class="step-line-wrap">
+          <div class="step-circle" style="background:var(--cream2);border:2px solid rgba(0,0,0,0.15);">
+            <span class="material-symbols-outlined" style="color:#888;">view_quilt</span>
+          </div>
+        </div>
+        <div class="step-body">
+          <div class="step-num-label">
+            <span>Pasul 3</span>
+            <button class="step-check-btn" onclick="toggleStep(this)" aria-label="Marchează ca rezolvat">
+              <span class="material-symbols-outlined">check_circle</span>
+            </button>
+          </div>
+          <p class="step-h">Structurarea paragrafelor (Idee + Exemplu)</p>
+          <p class="step-p">Fiecare paragraf conține o singură idee principală, urmată de un conector, dezvoltată și susținută de un exemplu concret sau o citare relevantă.</p>
+        </div>
+      </div>
+
+      <div class="step-row anim anim-d4">
+        <div class="step-line-wrap">
+          <div class="step-circle" style="background:var(--cream2);border:2px solid rgba(0,0,0,0.15);">
+            <span class="material-symbols-outlined" style="color:#888;">link</span>
+          </div>
+        </div>
+        <div class="step-body">
+          <div class="step-num-label">
+            <span>Pasul 4</span>
+            <button class="step-check-btn" onclick="toggleStep(this)" aria-label="Marchează ca rezolvat">
+              <span class="material-symbols-outlined">check_circle</span>
+            </button>
+          </div>
+          <p class="step-h">Inserarea conectorilor logici</p>
+          <p class="step-p">Folosește conectori de tipul „în primul rând", „prin urmare" sau „în concluzie" pentru fluiditatea și coerența textului. Variază conectorii pentru eleganță stilistică.</p>
+        </div>
+      </div>
+
+      <div class="step-row anim anim-d5">
+        <div class="step-line-wrap">
+          <div class="step-circle" style="background:var(--cream2);border:2px solid rgba(0,0,0,0.15);">
+            <span class="material-symbols-outlined" style="color:#888;">assignment_turned_in</span>
+          </div>
+        </div>
+        <div class="step-body">
+          <div class="step-num-label">
+            <span>Pasul 5</span>
+            <button class="step-check-btn" onclick="toggleStep(this)" aria-label="Marchează ca rezolvat">
+              <span class="material-symbols-outlined">check_circle</span>
+            </button>
+          </div>
+          <p class="step-h">Redactarea concluziei</p>
+          <p class="step-p">Reia ipoteza într-o formă nuanțată și sintetizează principalele argumente pentru a confirma valabilitatea acesteia. Nu introduce idei noi în concluzie.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Sidebar ghid -->
+  <div class="ghid-sidebar">
+    <div class="progress-card anim">
+      <p class="progress-title">Progresul tău</p>
+      <p class="progress-sub">Bifează pașii completați</p>
+      <div style="display:flex;align-items:baseline;gap:6px;">
+        <span class="progress-num" id="progress-done">0</span>
+        <span class="progress-denom">/ 5 pași</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <p class="progress-pct" id="progress-pct">0% completat</p>
+    </div>
+
+    <div class="res-section anim anim-d1">
+      <h3>Resurse Utile</h3>
+      <a class="res-item" href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,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" download="Model_Eseu_Argumentativ.docx">
+        <div class="res-icon" style="background:#fde8e8;">
+          <span class="material-symbols-outlined" style="color:#ba1a1a;font-size:20px;">description</span>
+        </div>
+        <div>
+          <p class="res-name">Model Eseu Argumentativ</p>
+          <p class="res-meta">DOCX • 12 KB</p>
+        </div>
+        <span class="material-symbols-outlined res-arrow">download</span>
+      </a>
+      <a class="res-item" href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,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" download="Template_Plan_de_Lucru.docx">
+        <div class="res-icon" style="background:var(--teal-light);">
+          <span class="material-symbols-outlined" style="color:var(--teal);font-size:20px;">description</span>
+        </div>
+        <div>
+          <p class="res-name">Template Plan de Lucru</p>
+          <p class="res-meta">DOCX • 10 KB</p>
+        </div>
+        <span class="material-symbols-outlined res-arrow">download</span>
+      </a>
+      <a class="res-item" href="data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,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" download="Glosar_Conectori_Logici.docx">
+        <div class="res-icon" style="background:rgba(201,168,76,0.12);">
+          <span class="material-symbols-outlined" style="color:var(--gold-dim);font-size:20px;">menu_book</span>
+        </div>
+        <div>
+          <p class="res-name">Glosar Conectori Logici</p>
+          <p class="res-meta">DOCX • 14 KB</p>
+        </div>
+        <span class="material-symbols-outlined res-arrow">download</span>
+      </a>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== EXAMPLES SECTION ==================== -->
+<section class="examples-section">
+  <div class="examples-inner">
+    <div class="section-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Exemple Practice Complete</span>
+    </div>
+    <h2 class="section-title">Modele de Text Argumentativ</h2>
+    <p class="section-sub">Trei exemple complete — de la teză la concluzie — cu argumente, dovezi și conectori logici.</p>
+
+    <div class="examples-grid">
+
+      <!-- EXEMPLUL 1 -->
+      <div class="ex-card anim">
+        <div class="ex-card-top">
+          <div class="ex-num-badge">1</div>
+          <div>
+            <p class="ex-card-title">Lectura și dezvoltarea personală</p>
+            <p class="ex-card-tag">Educație • Cultură</p>
+          </div>
+        </div>
+        <div class="ex-teza">
+          <p class="ex-teza-label">Teză / Ipoteză</p>
+          <p class="ex-teza-text">„În opinia mea, lectura cărților contribuie în mod esențial la formarea personalității și la dezvoltarea gândirii critice."</p>
+        </div>
+        <div class="ex-args">
+          <div class="ex-arg-block">
+            <div class="ex-arg-head">
+              <div class="ex-arg-dot dot-navy">A1</div>
+              <div>
+                <p class="ex-arg-title">Îmbogățirea vocabularului</p>
+                <p class="ex-arg-text">În primul rând, lectura sistematică contribuie la îmbogățirea vocabularului și la capacitatea de exprimare precisă.</p>
+              </div>
+            </div>
+            <div class="ex-dovada-row">
+              <span class="material-symbols-outlined ex-dovada-icon">format_quote</span>
+              <p class="ex-dovada-text">De exemplu, studiile arată că persoanele care citesc regulat au un vocabular cu 50% mai bogat, conform cercetărilor Universității din Oxford (2019).</p>
+            </div>
+          </div>
+          <div class="ex-arg-block">
+            <div class="ex-arg-head">
+              <div class="ex-arg-dot dot-navy">A2</div>
+              <div>
+                <p class="ex-arg-title">Empatia și înțelegerea socială</p>
+                <p class="ex-arg-text">Pe de altă parte, cărțile de ficțiune dezvoltă empatia, plasând cititorul în perspectiva unor personaje diverse.</p>
+              </div>
+            </div>
+            <div class="ex-dovada-row">
+              <span class="material-symbols-outlined ex-dovada-icon">format_quote</span>
+              <p class="ex-dovada-text">Spre exemplificare, romanul „Moromeții" de Marin Preda oferă o perspectivă profundă asupra vieții țărănimii române, cultivând înțelegerea alterității.</p>
+            </div>
+          </div>
+        </div>
+        <div class="ex-concluzie">
+          <p class="ex-concluzie-label"><span class="material-symbols-outlined">verified</span> Concluzie</p>
+          <p class="ex-concluzie-text">„Prin urmare, lectura rămâne unul dintre cele mai valoroase instrumente de formare a personalității, îmbinând plăcerea estetică cu dezvoltarea intelectuală."</p>
+        </div>
+      </div>
+
+      <!-- EXEMPLUL 2 -->
+      <div class="ex-card anim anim-d1">
+        <div class="ex-card-top">
+          <div class="ex-num-badge">2</div>
+          <div>
+            <p class="ex-card-title">Tehnologia și relațiile umane</p>
+            <p class="ex-card-tag">Societate • Tehnologie</p>
+          </div>
+        </div>
+        <div class="ex-teza">
+          <p class="ex-teza-label">Teză / Ipoteză</p>
+          <p class="ex-teza-text">„Consider că utilizarea excesivă a tehnologiei afectează negativ calitatea relațiilor interumane."</p>
+        </div>
+        <div class="ex-args">
+          <div class="ex-arg-block">
+            <div class="ex-arg-head">
+              <div class="ex-arg-dot dot-navy">A1</div>
+              <div>
+                <p class="ex-arg-title">Scăderea comunicării directe</p>
+                <p class="ex-arg-text">În primul rând, dependența de dispozitive digitale reduce semnificativ comunicarea față în față, esențială pentru o relație autentică.</p>
+              </div>
+            </div>
+            <div class="ex-dovada-row">
+              <span class="material-symbols-outlined ex-dovada-icon">format_quote</span>
+              <p class="ex-dovada-text">De exemplu, un studiu al Universității Michigan (2018) a demonstrat că tinerii care petrec +3 ore/zi pe rețele sociale raportează un nivel mai scăzut de satisfacție relațională.</p>
+            </div>
+          </div>
+          <div class="ex-arg-block">
+            <div class="ex-arg-head">
+              <div class="ex-arg-dot dot-navy">A2</div>
+              <div>
+                <p class="ex-arg-title">Supraficializarea interacțiunilor</p>
+                <p class="ex-arg-text">Pe de altă parte, comunicarea digitală favorizează interacțiuni superficiale, lipsite de nuanța conversației directe.</p>
+              </div>
+            </div>
+            <div class="ex-dovada-row">
+              <span class="material-symbols-outlined ex-dovada-icon">format_quote</span>
+              <p class="ex-dovada-text">Cum ar fi mesajele text, în care limbajul non-verbal — esențial pentru înțelegerea emoțională — este complet absent.</p>
+            </div>
+          </div>
+        </div>
+        <div class="ex-concluzie">
+          <p class="ex-concluzie-label"><span class="material-symbols-outlined">verified</span> Concluzie</p>
+          <p class="ex-concluzie-text">„Așadar, deși tehnologia facilitează conectivitatea globală, utilizarea sa necontrolată diminuează profunzimea relațiilor umane, un aspect esențial al bunăstării noastre."</p>
+        </div>
+      </div>
+
+      <!-- EXEMPLUL 3 -->
+      <div class="ex-card anim anim-d2">
+        <div class="ex-card-top">
+          <div class="ex-num-badge">3</div>
+          <div>
+            <p class="ex-card-title">Importanța educației fizice</p>
+            <p class="ex-card-tag">Sănătate • Educație</p>
+          </div>
+        </div>
+        <div class="ex-teza">
+          <p class="ex-teza-label">Teză / Ipoteză</p>
+          <p class="ex-teza-text">„Sunt de părere că educația fizică în școli este la fel de importantă ca disciplinele academice tradiționale."</p>
+        </div>
+        <div class="ex-args">
+          <div class="ex-arg-block">
+            <div class="ex-arg-head">
+              <div class="ex-arg-dot dot-navy">A1</div>
+              <div>
+                <p class="ex-arg-title">Sănătatea fizică și mentală</p>
+                <p class="ex-arg-text">În primul rând, activitatea fizică regulată contribuie atât la sănătatea corporală, cât și la echilibrul emoțional al elevilor.</p>
+              </div>
+            </div>
+            <div class="ex-dovada-row">
+              <span class="material-symbols-outlined ex-dovada-icon">format_quote</span>
+              <p class="ex-dovada-text">Spre exemplificare, OMS recomandă minimum 60 de minute de activitate fizică zilnică, constatând o reducere cu 30% a simptomelor de anxietate la elevii activi.</p>
+            </div>
+          </div>
+          <div class="ex-arg-block">
+            <div class="ex-arg-head">
+              <div class="ex-arg-dot dot-navy">A2</div>
+              <div>
+                <p class="ex-arg-title">Valori sociale și lucrul în echipă</p>
+                <p class="ex-arg-text">Pe de altă parte, sportul de echipă cultivă valori esențiale precum disciplina, respectul și cooperarea.</p>
+              </div>
+            </div>
+            <div class="ex-dovada-row">
+              <span class="material-symbols-outlined ex-dovada-icon">format_quote</span>
+              <p class="ex-dovada-text">Precum jocurile colective — fotbal, baschet, handbal — care cer coordonare și comunicare constantă între membrii echipei.</p>
+            </div>
+          </div>
+        </div>
+        <div class="ex-concluzie">
+          <p class="ex-concluzie-label"><span class="material-symbols-outlined">verified</span> Concluzie</p>
+          <p class="ex-concluzie-text">„În concluzie, educația fizică formează nu doar un corp sănătos, ci și un caracter echilibrat, pregătit pentru provocările vieții sociale și profesionale."</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>Logica Argumentării &nbsp;•&nbsp; Ghid complet pentru <strong>textul argumentativ</strong> &nbsp;•&nbsp; Hartă conceptuală, conectori logici și exemple practice.</p>
+</footer>
+
+<script>
+const VIEWS = ['harta','conectori','ghid'];
+
+function switchView(id, btn) {
+  VIEWS.forEach(v => {
+    document.getElementById('view-' + v).classList.toggle('active', v === id);
+  });
+  document.querySelectorAll('.header-nav-btn').forEach((b, i) => {
+    b.classList.toggle('active', VIEWS[i] === id);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+const TOTAL = 5;
+function toggleStep(btn) {
+  btn.classList.toggle('done');
+  const done = document.querySelectorAll('.step-check-btn.done').length;
+  const pct = Math.round((done / TOTAL) * 100);
+  document.getElementById('progress-done').textContent = done;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  document.getElementById('progress-pct').textContent = pct + '% completat';
+}
+
+// Intersection observer for animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.anim').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+  const delay = Array.from(el.classList).find(c => c.startsWith('anim-d'));
+  if (delay) {
+    const d = { 'anim-d1': '0.08s', 'anim-d2': '0.16s', 'anim-d3': '0.24s', 'anim-d4': '0.32s', 'anim-d5': '0.40s' };
+    el.style.transitionDelay = d[delay] || '0s';
+  }
+  observer.observe(el);
+});
+</script>
+</body>
+</html>
